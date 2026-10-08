@@ -26,14 +26,12 @@ export interface Product {
 }
 
 export type CategoryId =
-  | 'wok'
-  | 'sushi'
   | 'lavash'
-  | 'pitsa'
-  | 'vafli'
-  | 'setlar'
+  | 'hotdog'
+  | 'xagti'
+  | 'doner'
+  | 'burger'
   | 'snacks'
-  | 'ichimliklar'
 
 export interface MenuCategory {
   id: CategoryId

@@ -10,7 +10,7 @@ import { useUIStore } from '../stores/uiStore'
 export function Footer() {
   const setMenuCategory = useUIStore((s) => s.setMenuCategory)
 
-  const goCat = (id: 'wok' | 'sushi' | 'lavash' | 'pitsa' | 'vafli' | 'setlar') => {
+  const goCat = (id: CategoryId) => {
     setMenuCategory(id)
     scrollToId('menu')
   }
@@ -35,8 +35,7 @@ export function Footer() {
               {restaurantConfig.brand.name}
             </div>
             <p className="mt-3 max-w-sm text-sm leading-relaxed text-sand">
-              {restaurantConfig.brand.tagline} {restaurantConfig.brand.city} — wok, sushi, lavash,
-              pitsa va vafli.
+              {restaurantConfig.brand.tagline} {restaurantConfig.brand.city} — lavash, hot-dog, xagti, doner va burger.
             </p>
             <p className="mt-2 text-sm text-sand/80">{restaurantConfig.contact.addressDisplay}</p>
             <a
@@ -55,12 +54,12 @@ export function Footer() {
             <ul className="space-y-2.5 text-sm">
               {(
                 [
-                  ['WOK', 'wok'],
-                  ['SUSHI', 'sushi'],
                   ['LAVASH', 'lavash'],
-                  ['PITSA', 'pitsa'],
-                  ['VAFLI', 'vafli'],
-                  ['SETLAR', 'setlar'],
+                  ['HOT-DOG', 'hotdog'],
+                  ['XAGTI', 'xagti'],
+                  ['DONER', 'doner'],
+                  ['BURGER', 'burger'],
+                  ['SNACKS', 'snacks'],
                 ] as const
               ).map(([label, id]) => (
                 <li key={id}>

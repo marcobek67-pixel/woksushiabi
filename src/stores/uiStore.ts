@@ -31,6 +31,6 @@ export const useUIStore = create<UIState>((set) => ({
   activeProductId: null,
   setActiveProduct: (id) => set({ activeProductId: id }),
 
-  menuCategory: 'wok',
+  menuCategory: 'lavash',
   setMenuCategory: (c) => set({ menuCategory: c }),
 }))

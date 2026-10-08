@@ -2,13 +2,6 @@
  * ============================================================
  *  AKSIYALAR / PROMOTIONSLAR
  * ============================================================
- *  ⚠  PLACEHOLDER — Instagram'da tasdiqlangan aksiya topilmadi.
- *  Haqiqiy aksiyalarni shu ro'yxatga qo'shing — kartalar
- *  avtomatik chiziladi. Yo'q bo'lsa — bo'sh [] qoldiring,
- *  bo'lim "tez orada" holatiga o'tadi.
- *
- *  HECH QACHON o'ylab topilgan aksiya ko'rsatilmaydi.
- * ============================================================
  */
 
 export interface Promotion {
@@ -17,32 +10,21 @@ export interface Promotion {
   title: string
   description: string
   image?: string
-  isPlaceholder?: boolean
 }
 
 export const promotions: Promotion[] = [
   {
-    id: 'ph-combo',
+    id: 'combo-lavash',
     badge: 'KOMBO',
-    title: 'Wok + Ichimlik',
-    description: "PLACEHOLDER — haqiqiy aksiya shartlarini promotions.ts faylida to'ldiring.",
-    image: '/images/wok-signature.jpg',
-    isPlaceholder: true,
+    title: 'Lavash + Pepsi Set',
+    description: "Lavash + kartoshka fri + Pepsi — faqat 45,000 so'm.",
+    image: '/images/lavash-signature.jpg',
   },
   {
-    id: 'ph-family',
-    badge: 'FAMILY',
-    title: 'Family Set',
-    description: "PLACEHOLDER — haqiqiy aksiya shartlarini promotions.ts faylida to'ldiring.",
-    image: '/images/set-family.jpg',
-    isPlaceholder: true,
-  },
-  {
-    id: 'ph-21',
-    badge: '2+1',
-    title: 'Uchtasini ol — bittasi bizdan',
-    description: "PLACEHOLDER — haqiqiy aksiya shartlarini promotions.ts faylida to'ldiring.",
-    image: '/images/sushi-signature.jpg',
-    isPlaceholder: true,
+    id: 'combo-burger',
+    badge: 'SET',
+    title: 'Burger + Cola + Fri',
+    description: "To'liq ovqat seti — burger, cola va kartoshka fri. 35,000 so'm.",
+    image: '/images/pitsa-signature.jpg',
   },
 ]

@@ -17,9 +17,9 @@ import type { CategoryId } from '../data/products'
 
 const NAV_LINKS: Array<{ label: string; id: string; category?: CategoryId }> = [
   { label: 'MENYU', id: 'menu' },
-  { label: 'WOK', id: 'menu', category: 'wok' },
-  { label: 'SUSHI', id: 'menu', category: 'sushi' },
   { label: 'LAVASH', id: 'menu', category: 'lavash' },
+  { label: 'HOT-DOG', id: 'menu', category: 'hotdog' },
+  { label: 'BURGER', id: 'menu', category: 'burger' },
   { label: 'AKSIYALAR', id: 'aksiyalar' },
   { label: 'QAYERDAMIZ', id: 'qayerdamiz' },
 ]

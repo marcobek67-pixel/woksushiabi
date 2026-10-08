@@ -1,5 +1,5 @@
 /**
- * HERO 3D SAHNA — wok (markaz), sushi (chap), lavash (o'ng).
+ * HERO 3D SAHNA — lavash (markaz), hotdog (chap), burger (o'ng).
  * Kamera parallaks + scroll hikoyasi + intro reveal.
  */
 import { useEffect, useMemo, useRef } from 'react'
@@ -7,10 +7,9 @@ import * as THREE from 'three'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { Environment, Lightformer, Sparkles } from '@react-three/drei'
 import { EffectComposer, Bloom, Vignette } from '@react-three/postprocessing'
-import { WokModel } from './models/WokModel'
-import { SushiModel } from './models/SushiModel'
 import { LavashModel } from './models/LavashModel'
-import { SesameField } from './effects/SesameField'
+import { HotDogModel } from './models/HotDogModel'
+import { BurgerModel } from './models/BurgerModel'
 import { heroScene } from '../stores/sceneStore'
 import { useVisible } from './SceneWrappers'
 import type { QualityTier } from '../hooks/useQuality'
@@ -23,7 +22,6 @@ function smoothstep(a: number, b: number, x: number) {
 function CameraRig() {
   const { camera, size } = useThree()
   const target = useMemo(() => new THREE.Vector3(0, -0.35, 0), [])
-  // Portret (mobil) nisbatida kompozitsiya kadrda sig'ishi uchun kamera orqaga
   const fit = THREE.MathUtils.clamp(1.25 / (size.width / size.height), 1, 1.7)
 
   useFrame((_, delta) => {
@@ -46,23 +44,19 @@ function CameraRig() {
 function FoodComposition({ tier }: { tier: QualityTier }) {
   const high = tier === 'high'
   const { size } = useThree()
-  // Portret (mobil) kadrida matn bloki keng — kompozitsiya shunga moslashadi
   const portrait = size.width / size.height < 1
   const root = useRef<THREE.Group>(null)
-  const wok = useRef<THREE.Group>(null)
-  const sushi = useRef<THREE.Group>(null)
   const lavash = useRef<THREE.Group>(null)
+  const hotdog = useRef<THREE.Group>(null)
+  const burger = useRef<THREE.Group>(null)
 
   useFrame((state) => {
     const p = heroScene.progress
     const intro = heroScene.intro
     const t = state.clock.elapsedTime
-    // Portretda kompozitsiyani CTA tugmalaridan yuqoriroq ko'taramiz
     const lift = portrait ? 0.6 : 0
-    // Portret kadri tor — yon modelarni markazga tortamiz, aks holda chekkada kesiladi
     const spread = portrait ? 1.55 : 2.5
     const spreadR = portrait ? 1.6 : 2.55
-    // Portretda matn bloki keng — yon modellarni tagline qatoridan pastga tushiramiz
     const sideDrop = portrait ? -0.8 : 0
     const sideScale = portrait ? 0.8 : 1
 
@@ -71,46 +65,45 @@ function FoodComposition({ tier }: { tier: QualityTier }) {
       root.current.scale.setScalar(s)
       root.current.position.y = -1.15 + lift - (1 - intro) * 1.6
     }
-    if (wok.current) {
-      wok.current.rotation.y = Math.sin(t * 0.22) * 0.08
-      wok.current.position.y = Math.sin(t * 0.6) * 0.04
+    if (lavash.current) {
+      lavash.current.rotation.y = Math.sin(t * 0.22) * 0.08
+      lavash.current.position.y = Math.sin(t * 0.6) * 0.04
     }
-    // Sushi va lavash — hikoyada yonga uchib ketadi
     const drift = smoothstep(0.08, 0.5, p)
-    if (sushi.current) {
-      sushi.current.position.set(
+    if (hotdog.current) {
+      hotdog.current.position.set(
         -spread - drift * 2.6,
         sideDrop + 0.4 + Math.sin(t * 0.55) * 0.1 + drift * 0.7,
         -1.3 - drift * 1.4,
       )
-      sushi.current.rotation.y = 0.55 + t * 0.12 + drift * 1.8
-      sushi.current.rotation.z = drift * 0.5
+      hotdog.current.rotation.y = 0.55 + t * 0.12 + drift * 1.8
+      hotdog.current.rotation.z = drift * 0.5
       const sc = 0.78 * sideScale * (1 - drift * 0.45)
-      sushi.current.scale.setScalar(sc)
+      hotdog.current.scale.setScalar(sc)
     }
-    if (lavash.current) {
-      lavash.current.position.set(
+    if (burger.current) {
+      burger.current.position.set(
         spreadR + drift * 2.7,
         sideDrop + 0.15 + Math.sin(t * 0.5 + 2) * 0.1 + drift * 0.8,
         -1.0 - drift * 1.2,
       )
-      lavash.current.rotation.y = -0.4 - t * 0.1 - drift * 1.6
-      lavash.current.rotation.z = -drift * 0.4
+      burger.current.rotation.y = -0.4 - t * 0.1 - drift * 1.6
+      burger.current.rotation.z = -drift * 0.4
       const sc = 0.8 * sideScale * (1 - drift * 0.45)
-      lavash.current.scale.setScalar(sc)
+      burger.current.scale.setScalar(sc)
     }
   })
 
   return (
     <group ref={root}>
-      <group ref={wok}>
-        <WokModel detail={high ? 'high' : 'low'} scatterDrop={portrait ? 0.55 : 0} />
-      </group>
-      <group ref={sushi} position={[-2.5, 0.4, -1.3]} scale={0.78}>
-        <SushiModel detail={high ? 'high' : 'low'} />
-      </group>
-      <group ref={lavash} position={[2.55, 0.15, -1.0]} scale={0.8}>
+      <group ref={lavash}>
         <LavashModel detail={high ? 'high' : 'low'} />
+      </group>
+      <group ref={hotdog} position={[-2.5, 0.4, -1.3]} scale={0.78}>
+        <HotDogModel detail={high ? 'high' : 'low'} />
+      </group>
+      <group ref={burger} position={[2.55, 0.15, -1.0]} scale={0.8}>
+        <BurgerModel detail={high ? 'high' : 'low'} />
       </group>
     </group>
   )
@@ -152,7 +145,6 @@ export function HeroScene({ tier }: { tier: QualityTier }) {
           />
           <pointLight position={[-6, 2.5, -4]} intensity={55} color="#ff3d00" distance={25} decay={2} />
           <pointLight position={[5, 0.5, -3]} intensity={16} color="#e8b44a" distance={20} decay={2} />
-          {/* Wok ichini yorituvchi old to'ldiruvchi nur */}
           <pointLight position={[0, 3.4, 3.6]} intensity={42} color="#ffe3c0" distance={16} decay={2} />
 
           <Environment resolution={128} frames={1}>
@@ -177,7 +169,6 @@ export function HeroScene({ tier }: { tier: QualityTier }) {
           </Environment>
 
           <FoodComposition tier={tier} />
-          <SesameField count={high ? 46 : 20} />
           <Sparkles
             count={high ? 80 : 30}
             scale={[11, 7, 4]}

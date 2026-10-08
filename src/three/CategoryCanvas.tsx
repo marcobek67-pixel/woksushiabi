@@ -5,12 +5,13 @@
 import { useRef } from 'react'
 import * as THREE from 'three'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
-import { WokModel } from './models/WokModel'
-import { SushiModel } from './models/SushiModel'
 import { LavashModel } from './models/LavashModel'
+import { HotDogModel } from './models/HotDogModel'
+import { BurgerModel } from './models/BurgerModel'
+import { XagtiModel } from './models/XagtiModel'
 import { useVisible } from './SceneWrappers'
 
-export type CategoryKind = 'wok' | 'sushi' | 'lavash'
+export type CategoryKind = 'lavash' | 'hotdog' | 'burger' | 'xagti' | 'doner' | 'snacks'
 
 function RotatingModel({ kind, hovered }: { kind: CategoryKind; hovered: boolean }) {
   const group = useRef<THREE.Group>(null)
@@ -18,11 +19,9 @@ function RotatingModel({ kind, hovered }: { kind: CategoryKind; hovered: boolean
   const { size, camera } = useThree()
 
   useFrame((state, delta) => {
-    // Portret kartalarda model kadrda sig'adi
     const fit = THREE.MathUtils.clamp(1.1 / (size.width / size.height), 1, 1.55)
     const cam = camera as THREE.PerspectiveCamera
     cam.position.z = THREE.MathUtils.damp(cam.position.z, 5.2 * fit, 3, delta)
-    // Model karta markazida, matn blokidandan yuqorida ko'rinishi uchun pastga qaraymiz
     cam.lookAt(0, -0.1, 0)
 
     const g = group.current
@@ -38,9 +37,12 @@ function RotatingModel({ kind, hovered }: { kind: CategoryKind; hovered: boolean
 
   return (
     <group ref={group}>
-      {kind === 'wok' && <WokModel detail="low" getProgress={() => 1} fireScale={0.7} />}
-      {kind === 'sushi' && <SushiModel detail="low" />}
       {kind === 'lavash' && <LavashModel detail="low" />}
+      {kind === 'hotdog' && <HotDogModel detail="low" />}
+      {kind === 'burger' && <BurgerModel detail="low" />}
+      {kind === 'xagti' && <XagtiModel detail="low" />}
+      {kind === 'doner' && <XagtiModel detail="low" />}
+      {kind === 'snacks' && <HotDogModel detail="low" />}
     </group>
   )
 }
@@ -79,7 +81,6 @@ export function CategoryCanvas({
           />
           <pointLight position={[0, 2.4, 2.6]} intensity={26} color="#ffe3c0" distance={12} decay={2} />
           <pointLight ref={rimRef} position={[-3.5, 1.5, -2.5]} intensity={hovered ? 34 : 20} color={accent} distance={14} decay={2} />
-          {/* Qora karta fonida cho'chqa silueti ajralishi uchun orqa nur */}
           <pointLight position={[2.6, -0.6, -2.8]} intensity={14} color="#ffb066" distance={12} decay={2} />
           <RotatingModel kind={kind} hovered={hovered} />
         </Canvas>
