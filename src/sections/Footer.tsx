@@ -6,6 +6,7 @@ import { InstagramIcon } from '../components/ui/icons'
 import { restaurantConfig } from '../config/restaurantConfig'
 import { scrollToId } from '../utils/scroll'
 import { useUIStore } from '../stores/uiStore'
+import type { CategoryId } from '../data/products'
 
 export function Footer() {
   const setMenuCategory = useUIStore((s) => s.setMenuCategory)

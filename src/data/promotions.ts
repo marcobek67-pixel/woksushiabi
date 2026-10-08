@@ -10,6 +10,7 @@ export interface Promotion {
   title: string
   description: string
   image?: string
+  isPlaceholder?: boolean
 }
 
 export const promotions: Promotion[] = [
