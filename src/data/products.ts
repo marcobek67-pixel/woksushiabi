@@ -32,6 +32,7 @@ export type CategoryId =
   | 'doner'
   | 'burger'
   | 'snacks'
+  | 'setlar'
 
 export interface MenuCategory {
   id: CategoryId
